@@ -42,7 +42,9 @@ public class ListDE {
 
     /*
     lo primero que debemos hacer es validar si hay datos
-    si hay datos, preguntamos que si el tamaño de la lista es par
+    si hay datos,
+    como primera validacion digo que si solo hay un dato lo prendo y ya
+    otra validacion es que si el tamaño de la lista es par
         si la condicion se cumple, creamos dos ayudantes y nos situamos en en el led de la mitad y en el led siguiente,
         los encendemos y en el atributo de encendidole ponemos la hora en el que sucedio y un segundo despues los
         apaguamos y le ponemos la hora en el atributo de apagado
@@ -74,49 +76,53 @@ public class ListDE {
 
     public void turnOn_turnOff() throws InterruptedException {
         if (this.head != null){
-            int position;
-            NodeDE temp = head;
-            NodeDE after;
-            if (size % 2 == 0){
-                position = size / 2;
-                after = temp.getNext();
-                for (int j = 0; j == position ; j++) {
-                    temp = temp.getNext();
-                }
-                temp.getNext();
-                while (temp.getPrevious() != null){
+            if (size == 1){
+                turnOn(head);
+            }else {
+                int position;
+                NodeDE temp = head;
+                NodeDE after;
+                if (size % 2 == 0){
+                    position = size / 2;
+                    after = temp.getNext();
+                    for (int j = 0; j == position ; j++) {
+                        temp = temp.getNext();
+                    }
+                    temp.getNext();
+                    while (temp.getPrevious() != null){
+                        turnOn(temp);
+                        turnOn(after);
+
+                        turnOff(temp);
+                        turnOff(after);
+
+                        temp.getPrevious();
+                        after.getNext();
+                        Thread.sleep(1000);
+                    }
                     turnOn(temp);
                     turnOn(after);
+                }else{
+                    position = (size/2)+1;
+                    for (int i = 0; i == position ; i++) {
+                        temp = temp.getNext();
+                    }
+                    temp.getNext();
+                    after = temp.getNext();
+                    while(after.getNext() != null){
+                        turnOn(temp);
+                        turnOn(after);
 
-                    turnOff(temp);
-                    turnOff(after);
+                        turnOff(temp);
+                        turnOff(after);
 
-                    temp.getPrevious();
-                    after.getNext();
-                    Thread.sleep(1000);
-                }
-                turnOn(temp);
-                turnOn(after);
-            }else{
-                position = (size/2)+1;
-                for (int i = 0; i == position ; i++) {
-                    temp = temp.getNext();
-                }
-                temp.getNext();
-                after = temp.getNext();
-                while(after.getNext() != null){
+                        temp.getPrevious();
+                        after.getNext();
+                        Thread.sleep(1000);
+                    }
                     turnOn(temp);
                     turnOn(after);
-
-                    turnOff(temp);
-                    turnOff(after);
-
-                    temp.getPrevious();
-                    after.getNext();
-                    Thread.sleep(1000);
                 }
-                turnOn(temp);
-                turnOn(after);
             }
         }
     }//fin method turnOn_turnOff
