@@ -73,61 +73,60 @@ public class ListDE {
         after.getData().setDateOff(LocalTime.from(LocalDateTime.now()));
     }
 
-
     public void turnOn_turnOff() throws InterruptedException {
         if (this.head != null){
             if (size == 1){
                 turnOn(head);
-            }else {
-                int position;
-                NodeDE temp = head;
-                NodeDE after;
-                if (size % 2 == 0){
-                    position = size / 2;
-                    after = temp.getNext();
-                    for (int j = 0; j == position ; j++) {
-                        temp = temp.getNext();
-                    }
-                    temp.getNext();
-                    while (temp.getPrevious() != null){
-                        turnOn(temp);
-                        turnOn(after);
-
-                        turnOff(temp);
-                        turnOff(after);
-
-                        temp.getPrevious();
-                        after.getNext();
-                        Thread.sleep(1000);
-                    }
-                    turnOn(temp);
-                    turnOn(after);
-                }else{
-                    position = (size/2)+1;
-                    for (int i = 0; i == position ; i++) {
-                        temp = temp.getNext();
-                    }
-                    temp.getNext();
-                    after = temp.getNext();
-                    while(after.getNext() != null){
-                        turnOn(temp);
-                        turnOn(after);
-
-                        turnOff(temp);
-                        turnOff(after);
-
-                        temp.getPrevious();
-                        after.getNext();
-                        Thread.sleep(1000);
-                    }
-                    turnOn(temp);
-                    turnOn(after);
+            }
+            int position;
+            NodeDE temp = head;
+            NodeDE after;
+            if (size % 2 == 0){
+                position = size / 2;
+                after = temp.getNext();
+                for (int j = 0; j == position ; j++) {
+                    temp = temp.getNext();
                 }
+                temp.getNext();
+                while (temp.getPrevious() != null){
+                    turnOn(temp);
+                    turnOn(after);
+
+                    turnOff(temp);
+                    turnOff(after);
+
+                    temp.getPrevious();
+                    after.getNext();
+                    Thread.sleep(1000);
+                }
+                turnOn(temp);
+                turnOn(after);
+            }else {
+                position = (size / 2) + 1;
+                for (int i = 0; i == position; i++) {
+                    temp = temp.getNext();
+                }
+                temp.getNext();
+                after = temp.getNext();
+                while (after.getNext() != null) {
+                    turnOn(temp);
+                    turnOn(after);
+
+                    turnOff(temp);
+                    turnOff(after);
+
+                    temp.getPrevious();
+                    after.getNext();
+                    Thread.sleep(1000);
+                }
+                turnOn(temp);
+                turnOn(after);
             }
         }
     }//fin method turnOn_turnOff
 
     // end prototipo de method
+
     public void turnOnLight() throws InterruptedException {
         NodeDE temp = head;
         int pasos;
