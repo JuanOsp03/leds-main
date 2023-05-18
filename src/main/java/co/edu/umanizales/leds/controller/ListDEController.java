@@ -22,9 +22,9 @@ public class ListDEController {
         return new ResponseEntity<>(new ResponseDTO(200, listDEService.getLeds().printLed() , null), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseDTO> addLed(@RequestBody LedDTO ledDTO) throws ListDEException {
-        Led newLed = new Led(ledDTO.getId() , false);
+    @PostMapping(path = "/addLed/{ide}")
+    public ResponseEntity<ResponseDTO> addLed(@PathVariable int ide) throws ListDEException {
+        Led newLed = new Led(ide , false);
         listDEService.getLeds().addLed(newLed);
         return new ResponseEntity<>(new ResponseDTO(200, "la bombilla fue añadida", null), HttpStatus.OK);
     }
@@ -36,24 +36,9 @@ public class ListDEController {
         return new ResponseEntity<>(new ResponseDTO(200, "la bombilla fue añadida al inicio", null), HttpStatus.OK);
     }
 
-    // Prototipo de method
     @GetMapping(path = "/turn_on_turn_off")
-    public ResponseEntity<ResponseDTO> turnOn_turnOff(){
-        try{
+    public ResponseEntity<ResponseDTO> turnOn_turnOff_Led(){
             listDEService.getLeds().turnOn_turnOff();
-        }catch (InterruptedException e){
-            throw new RuntimeException(e);
-        }
-        return new ResponseEntity<>(new ResponseDTO(200, "Se realizo el encendido de las luces", null), HttpStatus.OK);
-    }
-
-    @GetMapping(path = "/turn_on_light")
-    public ResponseEntity<ResponseDTO> turnOnLight(){
-        try{
-            listDEService.getLeds().turnOnLight();
-        }catch (InterruptedException e){
-            throw new RuntimeException(e);
-        }
         return new ResponseEntity<>(new ResponseDTO(200, "Se realizo el encendido de las luces", null), HttpStatus.OK);
     }
 

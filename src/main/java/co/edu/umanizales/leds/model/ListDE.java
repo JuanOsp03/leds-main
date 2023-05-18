@@ -73,128 +73,77 @@ public class ListDE {
         after.getData().setDateOff(LocalTime.from(LocalDateTime.now()));
     }
 
-    public void turnOn_turnOff() throws InterruptedException {
-        if (this.head != null){
-            if (size == 1){
-                turnOn(head);
-            }
-            int position;
+    public void turnOn_turnOff() {
+        if (head != null) {
             NodeDE temp = head;
-            NodeDE after;
-            if (size % 2 == 0){
-                position = size / 2;
-                after = temp.getNext();
-                for (int j = 0; j == position ; j++) {
-                    temp = temp.getNext();
-                }
-                temp.getNext();
-                while (temp.getPrevious() != null){
-                    turnOn(temp);
-                    turnOn(after);
+            int position = 1;
+            int half;
+            if ((size % 2) == 0){
+                half = size/2;
+                while (temp != null){
+                    if (position == half){
+                        NodeDE next = temp.getNext();
+                        turnOn(temp);
+                        turnOn(next);
+                        while (next.getNext() != null) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            turnOff(temp);
+                            turnOff(next);
 
-                    turnOff(temp);
-                    turnOff(after);
+                            temp = temp.getPrevious();
+                            next = next.getNext();
 
-                    temp.getPrevious();
-                    after.getNext();
-                    Thread.sleep(1000);
-                }
-                turnOn(temp);
-                turnOn(after);
-            }else {
-                position = (size / 2) + 1;
-                for (int i = 0; i == position; i++) {
-                    temp = temp.getNext();
-                }
-                temp.getNext();
-                after = temp.getNext();
-                while (after.getNext() != null) {
-                    turnOn(temp);
-                    turnOn(after);
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
-                    turnOff(temp);
-                    turnOff(after);
-
-                    temp.getPrevious();
-                    after.getNext();
-                    Thread.sleep(1000);
-                }
-                turnOn(temp);
-                turnOn(after);
-            }
-        }
-    }//fin method turnOn_turnOff
-
-    // end prototipo de method
-
-    public void turnOnLight() throws InterruptedException {
-        NodeDE temp = head;
-        int pasos;
-        int half;
-        if (size % 2 == 0){
-            half = (size/2);
-            pasos = 1;
-            while (temp != null){
-                if (pasos == (half + 1)){
-                    temp.getData().setState(true);
-                    temp.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
-
-                    NodeDE temp2 = temp.getPrevious();
-                    temp2.getData().setState(true);
-                    temp2.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
-
-                    if (temp.getNext() != null){
-                        while (temp.getNext() != null){
-                            Thread.sleep(1000);
-                            temp.getData().setState(false);
-                            temp.getData().setDateOff(LocalTime.from(LocalDateTime.now()));
-
-                            temp2.getData().setState(false);
-                            temp2.getData().setDateOff(LocalTime.from(LocalDateTime.now()));
-
-                            temp = temp.getNext();
-                            temp.getData().setState(true);
-                            temp.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
-
-                            temp2 = temp.getNext();
-                            temp2.getData().setState(true);
-                            temp2.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
+                            turnOn(temp);
+                            turnOn(next);
                         }
                     }
+                    position++;
+                    temp= temp.getNext();
                 }
-                pasos ++;
-                temp = temp.getNext();
-            }
-        }else{
-            half = (size/2)+1;
-            pasos = 1;
-            while (temp != null){
-                if (pasos == half){
-                    temp.getData().setState(true);
-                    temp.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
-                    NodeDE second_temp = temp;
-                    if (temp.getNext() != null){
-                        Thread.sleep(1000);
-                        temp.getData().setState(false);
-                        temp.getData().setDateOff(LocalTime.from(LocalDateTime.now()));
+            } else{
+                half = (size / 2) + 1;
+                while (temp != null){
+                    if (position == half){
+                        NodeDE next = temp;
+                        turnOn(temp);
+                        while (next.getNext() != null){
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            turnOff(temp);
+                            turnOff(next);
 
-                        second_temp.getData().setState(false);
-                        second_temp.getData().setDateOff(LocalTime.from(LocalDateTime.now()));
+                            temp = temp.getPrevious();
+                            next= next.getNext();
 
-                        temp = temp.getNext();
-                        temp.getData().setState(true);
-                        temp.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
-                        second_temp = temp.getNext();
-                        second_temp.getData().setState(true);
-                        second_temp.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
+                            turnOn(temp);
+                            turnOn(next);
+                        }
                     }
+                    position++;
+                    temp= temp.getNext();
                 }
             }
-            pasos++;
-            temp = temp.getNext();
         }
-    }
+    } //fin method turnOn_turnOff
 
     public List<Led> printLed() {
         leds.clear();
