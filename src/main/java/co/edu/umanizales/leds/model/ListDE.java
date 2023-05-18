@@ -63,6 +63,59 @@ public class ListDE {
      */
 
     // Prototipo de method
+    /*public void turnOn_turnOff() {
+        if (this.head != null) {
+            if (size == 1) {
+                turnOn(head);
+            }
+            int position;
+            NodeDE temp = head;
+            NodeDE after;
+            if (size % 2 == 0) {
+                position = size / 2;
+                after = temp.getNext();
+                for (int j = 0; j == position; j++) {
+                    temp = temp.getNext();
+                }
+                temp.getNext();
+                while (temp.getPrevious() != null) {
+                    turnOn(temp);
+                    turnOn(after);
+
+                    turnOff(temp);
+                    turnOff(after);
+
+                    temp.getPrevious();
+                    after.getNext();
+                    Thread.sleep(1000);
+                }
+                turnOn(temp);
+                turnOn(after);
+            } else {
+                position = (size / 2) + 1;
+                for (int i = 0; i == position; i++) {
+                    temp = temp.getNext();
+                }
+                temp.getNext();
+                after = temp.getNext();
+                while (after.getNext() != null) {
+                    turnOn(temp);
+                    turnOn(after);
+
+                    turnOff(temp);
+                    turnOff(after);
+
+                    temp.getPrevious();
+                    after.getNext();
+                    Thread.sleep(1000);
+                }
+                turnOn(temp);
+                turnOn(after);
+            }
+        }
+    }//fin Prototype method turnOn_turnOff
+*/
+
     public void turnOn(NodeDE temp){
         temp.getData().setState(true);
         temp.getData().setDateOn(LocalTime.from(LocalDateTime.now()));
